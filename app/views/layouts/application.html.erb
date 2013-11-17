@@ -13,23 +13,38 @@
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    
-    <ul class="nav">
-      <li class="active">Ideas</li>
-    </ul>
-    <p class="navbar-text pull-right">
-    <% if user_signed_in? %>
-      <%= link_to current_user.email, main_app.edit_user_registration_path %>
-      | <%= link_to "Sign out", main_app.destroy_user_session_path, :method => :delete %>
-      <% if current_user.forem_admin %>
-          | <%= link_to "Administrate", forem.admin_root_url %>
-      <% end %>
-    <% else %>
-      <%= link_to "Sign up", main_app.new_user_registration_path %>
-      | <%= link_to "Sign in", main_app.new_user_session_path %>
-    <% end %>
-    </p> 
-    
+    <div class="container">
+      <div class="row page-header">
+        <div class="col-xs-12 col-md-5">
+            <h1>CrashCourse</h1>
+            <h4>Interactive Learning</h4>
+            <h5>A class project of Wei & Yuan</h5>
+        </div>
+        <div class="col-xs-12 col-md-5">
+          <ul class="nav nav-pills pull-right">
+            
+            <% if user_signed_in? %>
+              <li><%= link_to current_user.email, main_app.edit_user_registration_path %></li>
+              <li><%= link_to "Sign out", main_app.destroy_user_session_path, :method => :delete %></li>
+              <% if current_user.forem_admin %>
+                  | <%= link_to "Administrate", forem.admin_root_url %>
+              <% end %>
+            <% else %>
+              <li><%= link_to "Sign up", main_app.new_user_registration_path %></li>
+              <li><%= link_to "Sign in", main_app.new_user_session_path %></li>
+            <% end %>
+          </ul>
+          </div>
+      </div>
+      
+
+    </div>
+<div class="container">
+    <div class="row">
+  <div class="col-md-8">.col-md-8</div>
+  <div class="col-md-4">.col-md-4</div>
+</div>
+</div>
 
     <%= yield %>
 
