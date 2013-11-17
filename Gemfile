@@ -9,6 +9,10 @@ gem 'thin'
 gem 'therubyracer'
 gem 'execjs'
 gem 'devise'
+gem 'forem', :github => "radar/forem", :branch => "rails4"
+gem 'friendly_id', github: "FriendlyId/friendly_id"
+gem 'cancan', git: "https://github.com/nukturnal/cancan.git"
+gem 'kaminari', '0.14.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
