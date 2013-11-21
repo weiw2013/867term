@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131121032046) do
+ActiveRecord::Schema.define(version: 20131121062422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20131121032046) do
     t.integer  "reply_to_id"
     t.string   "state",       default: "pending_review"
     t.boolean  "notified",    default: false
+    t.datetime "start_time"
+    t.integer  "length"
   end
 
   add_index "forem_posts", ["reply_to_id"], name: "index_forem_posts_on_reply_to_id", using: :btree
