@@ -2,19 +2,77 @@
 <html>
 <head>
   <title>CrashCourse</title>
-  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= stylesheet_link_tag    "application", media: "all"%>
   <%= javascript_include_tag "application"%>
   <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<% if notice %>
-  <p class="alert alert-notice"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-error"><%= alert %></p>
-<% end %>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <div class="container">
+      <div class="row">
+        <div class="span5 page-header">
+            <h1>CrashCourse</h1>
+            <h4>Interactive Learning</h4>
+            <h5>A class project of Wei & Yuan</h5>
+        </div>
+        <div class="span7">
+          <ul class="nav nav-pills pull-right">
+            <br /><br /><br />
+            <% if user_signed_in? %>
+              <li><%= link_to current_user.email, main_app.edit_user_registration_path %></li>
+              <li><%= link_to "Sign out", main_app.destroy_user_session_path, :method => :delete %></li>
+              <% if current_user.forem_admin %>
+                  | <%= link_to "Administrate", forem.admin_root_url %>
+              <% end %>
+            <% else %>
+              <li><%= link_to "Sign up", main_app.new_user_registration_path %></li>
+              <li><%= link_to "Sign in", main_app.new_user_session_path %></li>
+            <% end %>
+          </ul>
+          </div>
+      </div>
+       <div class="navbar">
+                <div class="navbar-inner">
+                    <ul class="nav">
+                        <li class="active"><a href="/home/index"><i class="icon-home"></i> Home</a></li>
+                        <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown"><i class="icon-list"></i> Browse <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/forums/forums/default">Course</a></li>
+                            <li><a href="/forums/forums/request">Request</a></li>
+                          </ul>
+                        </li>
+                        <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus"></i> Add <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/forums/forums/default/topics/new">Course</a></li>
+                            <li><a href="/forums/forums/request/topics/new">Request</a></li>
+                          </ul>
+                        </li>
+                        <li ><a href=""><i class="icon-user"></i> My Course</a></li>
+                    </ul>
+                        <form class="navbar-form pull-right" action="" method="get">
+                           <input type="text" placeholder="Search Course" name="query">
+                           <button type="submit" class="btn btn-primary"><i class="icon-search"></i></button>
+                        </form>
+                </div>
+            </div>
+  
 
-<%= yield %>
+    <%= yield %>
+
+    
+      <div class="row">
+          <hr>
+          <a href="#">Home</a>
+          <span class="separator">| </span><a href="#">Privacy</a>
+          <span class="separator">| </span><a href="#">Contact</a>
+     </div>
+   </div>
+
 
 </body>
 </html>
