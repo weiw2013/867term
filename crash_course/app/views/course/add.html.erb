@@ -1,3 +1,6 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag 'add_course.js' %>
+<% end %>
 <form class="form-horizontal" >
     <div class = "row">
         <div class="span6">
@@ -26,9 +29,24 @@
        </div> 
    </div> 
    <div class="row">
+         <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Date</label>
+                <div class="controls">
+                    <select id = "month"  class="input-small">
+                    </select>
+                    /
+                    <select id = "day"  class="input-small">
+                    </select>
+                    /
+                    <select id = "year"  class="input-small">
+                    </select>
+                </div> 
+            </div>         
+        </div> 
         <div class = "span6">
             <div class="control-group">
-                <label class="control-label" for="inputEmail">Time</label>
+                <label class="control-label">Time</label>
                 <div class="controls">
                     
                         <select id = "time-hr"  class="input-small">
@@ -39,22 +57,11 @@
                 </div> 
             </div>
         </div> 
-
-        <div class="span6">
-            <select id = "month"  class="input-small">
-            </select>
-            /
-            <select id = "day"  class="input-small">
-            </select>
-            /
-            <select id = "year"  class="input-small">
-            </select>
-        </div> 
     </div>  
     <div class = "row">
         <div class="span6">
             <div class="control-group">
-                <label class="control-label">Topic</label>
+                <label class="control-label">Length</label>
                 <div class="controls">
                    <select id = "hour" class="input-small">
                         <option>0</option>
