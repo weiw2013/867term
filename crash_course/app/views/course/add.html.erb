@@ -1,0 +1,107 @@
+<form class="form-horizontal" >
+    <div class = "row">
+        <div class="span6">
+        	<div class="control-group">
+        		<label class="control-label">Topic</label>
+        		<div class="controls">
+                   <select id = "topic">
+    		            <option>Art</option>
+    		            <option>Science</option>
+    		            <option>Technology</option>
+    		            <option>Personal Improvement</option>
+    		            <option>Home Improvement</option>
+    		            <option>Recreation</option>
+    		            <option>Others</option>
+    	        	</select>
+                </div>
+            </div>
+       </div>      
+        <div class="span6">
+        	<div class="control-group">
+        		<label class="control-label">Title</label>
+        		<div class="controls">
+                    <input type="text" id="title" placeholder="Course Title">
+                </div>
+            </div>
+       </div> 
+   </div> 
+   <div class="row">
+        <div class = "span6">
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Time</label>
+                <div class="controls">
+                    
+                        <select id = "time-hr"  class="input-small">
+                        </select>
+                        :
+                        <select id = "time-min"  class="input-small">
+                        </select>
+                </div> 
+            </div>
+        </div> 
+
+        <div class="span6">
+            <select id = "month"  class="input-small">
+            </select>
+            /
+            <select id = "day"  class="input-small">
+            </select>
+            /
+            <select id = "year"  class="input-small">
+            </select>
+        </div> 
+    </div>  
+    <div class = "row">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Topic</label>
+                <div class="controls">
+                   <select id = "hour" class="input-small">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>                       
+                    </select>
+                    hr
+                    <select id = "minute" class="input-small">                     
+                    </select>
+                    min
+                </div>
+            </div>
+       </div>      
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Seats</label>
+                <div class="controls">
+                    <input type="text" id="seats" placeholder="seats">
+                </div>
+            </div>
+       </div> 
+   </div> 
+
+    <div class="control-group">
+        <label class="control-label">Description</label>
+        <div class="controls">
+           <textarea rows="6" 
+                      id="description" 
+                      class="span8 input-block-level"
+                      placeholder="Course Description"></textarea>
+        </div>
+    </div>   
+   <div class="control-group">
+                <label class="control-label" for="image-field">
+                    Attachment
+                </label>
+                <div class="controls">
+                    <input type="file" class="span4" name="file" placeholder="File name" id="image-file">
+                    <button class="btn" id="upload-Attachment">Upload</button>
+                </div>
+    </div>
+    
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" id="form-submit" class="btn btn-primary">Submit</button>
+        </div>    
+    </div>    
+            
+</form>

@@ -9,7 +9,7 @@ gem 'thin'
 gem 'therubyracer'
 gem 'execjs'
 gem 'devise'
-gem 'protected_attributes'
+#gem 'protected_attributes'
 gem 'forem', :github => "radar/forem", :branch => "rails4"
 gem 'forem-bootstrap', :github => "radar/forem-bootstrap"
 gem 'friendly_id', github: "FriendlyId/friendly_id"
