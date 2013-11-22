@@ -23,6 +23,8 @@ gem 'uglifier', '>= 1.3.0'
 
 #gem 'bootstrap-sass-rails'
 gem 'bootstrap-sass', '~> 2.3.2.1'
+#gem 'bootstrap-datetimepicker-rails'
+#gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://github.com/zpaulovics/datetimepicker-rails.git'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 

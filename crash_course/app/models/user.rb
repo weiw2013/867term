@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   	attr_accessor :login
   	def to_s
-  		email
+  		username
 	end
 	#attr_accessible :username, :email, :password, :password_confirmation, :remember_me
 	def self.find_first_by_auth_conditions(warden_conditions)

@@ -1,25 +1,9 @@
 <% content_for(:head) do %>
   <%= javascript_include_tag 'add_course.js' %>
 <% end %>
-<form class="form-horizontal" >
-    <div class = "row">
-        <div class="span6">
-        	<div class="control-group">
-        		<label class="control-label">Topic</label>
-        		<div class="controls">
-                   <select id = "topic">
-    		            <option>Art</option>
-    		            <option>Science</option>
-    		            <option>Technology</option>
-    		            <option>Personal Improvement</option>
-    		            <option>Home Improvement</option>
-    		            <option>Recreation</option>
-    		            <option>Others</option>
-    	        	</select>
-                </div>
-            </div>
-       </div>      
-        <div class="span6">
+<form class="form-horizontal">
+    <div class = "row">        
+        <div class="span7">
         	<div class="control-group">
         		<label class="control-label">Title</label>
         		<div class="controls">
@@ -27,9 +11,25 @@
                 </div>
             </div>
        </div> 
+       <div class="span5">
+            <div class="control-group">
+                <label class="control-label">Topic</label>
+                <div class="controls">
+                   <select id = "topic">
+                        <option>Art</option>
+                        <option>Science</option>
+                        <option>Technology</option>
+                        <option>Personal Improvement</option>
+                        <option>Home Improvement</option>
+                        <option>Recreation</option>
+                        <option>Others</option>
+                    </select>
+                </div>
+            </div>
+       </div>      
    </div> 
    <div class="row">
-         <div class="span6">
+         <div class="span7">
             <div class="control-group">
                 <label class="control-label">Date</label>
                 <div class="controls">
@@ -44,7 +44,7 @@
                 </div> 
             </div>         
         </div> 
-        <div class = "span6">
+        <div class = "span5">
             <div class="control-group">
                 <label class="control-label">Time</label>
                 <div class="controls">
@@ -56,10 +56,10 @@
                         </select>
                 </div> 
             </div>
-        </div> 
+        </div>
     </div>  
     <div class = "row">
-        <div class="span6">
+        <div class="span7">
             <div class="control-group">
                 <label class="control-label">Length</label>
                 <div class="controls">
@@ -76,7 +76,7 @@
                 </div>
             </div>
        </div>      
-        <div class="span6">
+        <div class="span5">
             <div class="control-group">
                 <label class="control-label">Seats</label>
                 <div class="controls">
@@ -85,6 +85,27 @@
             </div>
        </div> 
    </div> 
+   <div class = "row">
+        <div class="span7">
+           <div class="control-group">
+                <label class="control-label" for="image-field">
+                    Attachment
+                </label>
+                <div class="controls">
+                    <input type="text" class="span4" placeholder="File name" id="image-file">
+                    <!--<button class="btn" id="upload-Attachment">Upload</button>-->
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="control-group">
+                <label class="control-label">Price</label>
+                <div class="controls">
+                    <input type="text" id="price" placeholder="price">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="control-group">
         <label class="control-label">Description</label>
@@ -95,20 +116,12 @@
                       placeholder="Course Description"></textarea>
         </div>
     </div>   
-   <div class="control-group">
-                <label class="control-label" for="image-field">
-                    Attachment
-                </label>
-                <div class="controls">
-                    <input type="file" class="span4" name="file" placeholder="File name" id="image-file">
-                    <button class="btn" id="upload-Attachment">Upload</button>
-                </div>
-    </div>
+   
     
     <div class="control-group">
         <div class="controls">
-            <button type="submit" id="form-submit" class="btn btn-primary">Submit</button>
+            <button id="submit" class="btn btn-primary">Submit</button>
         </div>    
     </div>    
-            
-</form>
+ </form>           
+

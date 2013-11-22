@@ -1,8 +1,10 @@
 $('document').ready(function(){
   init_event();
   update_day();
+  submit_course();
 });
 
+ 
 function init_event() {
 	for(var i = 0; i < 24; i++){
 		$("#time-hr").append("<option>"+i+"</option>");
@@ -22,9 +24,18 @@ function init_event() {
 	}
 	
 }
+
 function update_day(){
-	$("#day").click(function(){
-		var selected_month= $('#month :selected').text();
+	$("#month").click(function(){
+		update_day_select();
+	});
+	$("#year").click(function(){
+		update_day_select();
+	});
+}
+
+function update_day_select(){
+	var selected_month= $('#month :selected').text();
 		var selected_year= $('#year :selected').text();
 		var lastDay = (new Date(selected_year, selected_month, 0)).getUTCDate();
 	
@@ -32,7 +43,38 @@ function update_day(){
 		for(var i = 1; i <= lastDay; i++){
 			$("#day").append("<option>"+i+"</option>");
 		}
-	});
+
 }
 
-
+function submit_course(){
+	$('#submit').click(function(){
+		var topic = $("#topic:selected").text();
+		var title = $("#title").val();
+		var length = $("#length").val();//change this
+		var seats = $("#seats").val();
+		var price = $("#price").val();
+		var date_time = $('#day:selected').text()+'/'+$('#month :selected').text()+'/'+$('#year :selected').text()+ ' '+$('#time-hr:selected').text()+':'+$('#time-min:selected').text();
+		var description = $('#description').val();
+		var path="";
+	
+		alert(topic+','+ title+','+ date_time+','+length+','+seats+','+description+','+price+','+path);
+		post_course(topic, title, date_time,length,seats,description,price,path);
+	});
+}
+function post_course(topic, title, date_time,length,seats,description,price,path){
+	var month = current_month+1;
+	 $.ajax({
+        type: 'POST',
+        url: '/add_course',
+        data: {'title': title ,'description':description,'start_time':date_time,length:'length',price:'price','attachment_path':path, 'topic':topic},
+        fail: function(){
+            alert('failed');
+        },
+        complete:function(){
+        	//$("#last").empty();
+        	//get_appointments();
+        	alert('success');
+        },
+        
+    });
+}
