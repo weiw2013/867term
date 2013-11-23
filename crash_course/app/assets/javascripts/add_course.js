@@ -48,32 +48,31 @@ function update_day_select(){
 
 function submit_course(){
 	$('#submit').click(function(){
-		var topic = $("#topic:selected").text();
-		var title = $("#title").val();
-		var length = $("#length").val();//change this
+		var topic  = $("#topic :selected").text();
+		var title = $("#title").val();		
+		var length = $("#hour :selected").text()+' hr '+ $("#minute :selected").text() + ' min';
 		var seats = $("#seats").val();
 		var price = $("#price").val();
-		var date_time = $('#day:selected').text()+'/'+$('#month :selected').text()+'/'+$('#year :selected').text()+ ' '+$('#time-hr:selected').text()+':'+$('#time-min:selected').text();
-		var description = $('#description').val();
-		var path="";
-	
-		alert(topic+','+ title+','+ date_time+','+length+','+seats+','+description+','+price+','+path);
+		var date_time = $('#day :selected').text()+'/'+$('#month :selected').text()+'/'+$('#year :selected').text()+ ' '+$('#time-hr :selected').text()+':'+$('#time-min :selected').text();
+		var description = $('#description').val().replace(/\n/g, '<br />');
+		var path="/image";
 		post_course(topic, title, date_time,length,seats,description,price,path);
 	});
 }
-function post_course(topic, title, date_time,length,seats,description,price,path){
-	var month = current_month+1;
+function post_course(topic, title, date_time,length,seats,description,price,path){	
+	 alert(topic+','+ title+','+ date_time+','+length+','+seats+','+description+','+price+','+path);
 	 $.ajax({
         type: 'POST',
-        url: '/add_course',
-        data: {'title': title ,'description':description,'start_time':date_time,length:'length',price:'price','attachment_path':path, 'topic':topic},
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        url: '/submit_course',
+        data: {'title': title ,'description':description,'start_time':date_time,'length':length,'price':price,'attachment_path':path, 'topic':topic,'seats':seats},
         fail: function(){
             alert('failed');
         },
         complete:function(){
         	//$("#last").empty();
         	//get_appointments();
-        	alert('success');
+        	//alert('success');
         },
         
     });

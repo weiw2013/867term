@@ -1,2 +1,5 @@
-<h1>Course#show_one</h1>
-<p>Find me in app/views/course/show_one.html.erb</p>
+<legend><%=@course.title%></legend>
+<p>Taught by : <%=@user.username%></p>
+<p>Time: <%=@course.start_time%></p>
+<p>Length: <%=@course.length%></p>
+<%= simple_format(@course.description) %>
