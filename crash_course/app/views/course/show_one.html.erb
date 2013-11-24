@@ -1,5 +1,18 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag 'enroll_course.js' %>
+<% end %>
+
 <legend><%=@course.title%></legend>
 <p>Taught by : <%=@user.username%></p>
 <p>Time: <%=@course.start_time%></p>
 <p>Length: <%=@course.length%></p>
-<%= simple_format(@course.description) %>
+<p><%= simple_format(@course.description) %></p>
+<div class="row">
+	<div class = "span2 offset10">
+		
+			<%= button_to 'Enroll', {:controller => :enrollment, :action => 'add_one', :course_id => @course.id}, :method=>:post  %>
+		
+	</div>
+</div>
+
+

@@ -5,13 +5,13 @@ $('document').ready(function(){
 });
 
 function render_courses(){	
-	var start = "<div class=\"span4\"><ul class=\"thumbnails\"><li class=\"span3\"><a href="
+	var start = "<div class=\"span4\"><ul class=\"thumbnails\"><li class=\"span3\"><a href=/course/?id=";
     var mid = " class=\"thumbnail\"><img src=\"#\" alt=\"\" class=\"img-rounded\" ><strong>";
 	var end ="</strong></a></li></ul></div>";
 	
 	if(courses != null){
 	   $.each(courses, function (i) {
-	   		var one_course = start+"/course/?id="+courses[i].id+mid+courses[i].title+end;
+	   		var one_course = start+courses[i].id+mid+courses[i].title+end;
 	   		$("#frame").append(one_course);			
 		});
 	}
