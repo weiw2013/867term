@@ -2,15 +2,22 @@
   <%= javascript_include_tag 'enroll_course.js' %>
 <% end %>
 
-<legend><%=@course.title%></legend>
-<p>Taught by : <%=@user.username%></p>
-<p>Time: <%=@course.start_time%></p>
-<p>Length: <%=@course.length%></p>
+<legend id = <%=@course.id%> ><%=@course.title%></legend>
+<i class="icon-user"></i><strong> <%=@user.username%></strong><br />
+<i class="icon-time"></i>
+
+<strong id = "time" data-start="<%=@course.start_time%>" data-length=<%=@course.length%>> 
+	<%=@course.start_time.to_date%>
+	<%=@course.start_time.to_time.strftime('%H:%M')%>~
+	<%=(@course.start_time+@course.length.to_i.minutes).to_time.strftime('%H:%M')%></strong>
+
+ 
+<p>Seats left: <%=@course.seats%></p>
 <p><%= simple_format(@course.description) %></p>
 <div class="row">
 	<div class = "span2 offset10">
-		
-			<%= button_to 'Enroll', {:controller => :enrollment, :action => 'add_one', :course_id => @course.id}, :method=>:post  %>
+		 <input type= "submit" id="enroll"  value="Enroll" class="btn btn-large btn-primary"/>
+			<!--<%= button_to 'Enroll', {:controller => :enrollment, :action => 'add_one', :course_id => @course.id}, :method=>:post  %>-->
 		
 	</div>
 </div>

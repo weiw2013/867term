@@ -1,21 +1,30 @@
 $('document').ready(function(){
+  
   add_enrollment();
 });
 
-function add_enrollment(){	
-	 $.ajax({
-        type: 'POST',
-        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-        url: '/submit_course',
-        data: {'title': title ,'description':description,'start_time':date_time,'length':length,'price':price,'attachment_path':path, 'topic':topic,'seats':seats},
-        fail: function(){
-            alert('failed');
-        },
-        complete:function(){
-        	//$("#last").empty();
-        	//get_appointments();
-        	//alert('success');
-        },
-        
+function add_enrollment(){
+    $("#enroll").click(function(){ 
+        var course_id = $("legend").attr('id');
+        var start_time = $("#time").attr('data-start');
+        var length = $("#time").attr('data-length');
+        alert(course_id + ' '+start_time+ ' '+length);   	
+        $.ajax({
+            type: 'POST',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            url: '/enroll_course',
+            data: {'course_id': course_id,'start_time':start_time,'length':length},
+            fail: function(){
+                alert('failed');
+            },
+            success:function(data){
+                result = $.parseJSON(data);
+                $.each(result, function (i) {
+                    alert(result[i]);
+                });
+                
+            },
+            dataType: 'text'
+        });
     });
 }

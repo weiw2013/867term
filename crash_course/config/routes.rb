@@ -29,7 +29,7 @@ CrashCourse::Application.routes.draw do
   match '/learnings', to: 'course#get_user_learnings', via: 'get'
   match '/add_course', to:'course#add', via:'get'
   match '/submit_course', to:'course#add_one', via:'post'
-  match '/enrollment/add_one', to:'enrollment#add_one',via:'post'
+  match '/enroll_course', to:'enrollment#add_one',via:'post'
   # This line mounts Forem's routes at /forums by default.
   # This means, any requests to the /forums URL of your application will go to Forem::ForumsController#index.
   # If you would like to change where this extension is mounted, simply change the :at option to something different.

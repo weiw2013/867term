@@ -50,7 +50,7 @@ function submit_course(){
 	$('#submit').click(function(){
 		var topic  = $("#topic :selected").text();
 		var title = $("#title").val();		
-		var length = $("#hour :selected").text()+' hr '+ $("#minute :selected").text() + ' min';
+		var length = Number($("#hour :selected").text() * 60) + Number($("#minute :selected").text());
 		var seats = $("#seats").val();
 		var price = $("#price").val();
 		var date_time = $('#day :selected').text()+'/'+$('#month :selected').text()+'/'+$('#year :selected').text()+ ' '+$('#time-hr :selected').text()+':'+$('#time-min :selected').text();
@@ -69,11 +69,14 @@ function post_course(topic, title, date_time,length,seats,description,price,path
         fail: function(){
             alert('failed');
         },
-        complete:function(){
-        	//$("#last").empty();
-        	//get_appointments();
-        	//alert('success');
+        success:function(data){
+        	result = $.parseJSON(data);
+        	$.each(result, function (i) {
+	   			alert(result[i]);
+	   		});
+        	
         },
+        dataType: 'text'
         
     });
 }
