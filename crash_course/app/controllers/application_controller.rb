@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    @user_learnings = Course.joins(:enrollments).where("courses.user_id=?",current_user.id)
+    @user_learnings = Course.joins(:enrollments).where("enrollments.user_id=?",current_user.id)
 
 
     @user_learnings.each do |learning|

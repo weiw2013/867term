@@ -5,31 +5,67 @@
 	<thead>
 		<tr>
 			<th>Course name</th>
+			<th>Time</th>
 			<th>Status</th>
 		</tr>
 	</thead>
 	<tbody id="teaching">
-		<%@user_teachings.each do |teaching|%>
+		<% if @user_teachings.count > 0%>
+			<%@user_teachings.each do |teaching|%>
+				<tr>
+					<td><a href = "/course?id=<%=teaching.id%>"><%=teaching.title%></a></td>
+					<td><%=teaching.start_time.to_date%>
+						<%=teaching.start_time.to_time.strftime('%H:%M')%>~
+						<%=(teaching.start_time+teaching.length.to_i.minutes).to_time.strftime('%H:%M')%></td>
+					<%if(teaching.start_time >= DateTime.now) %>
+						<td>On Time</td>
+					<% else %>
+						<td>Expired</td>
+					<% end %>  
+					
+				</tr>	
+			<% end %>
+		<%else%>
 			<tr>
-				<td><%=teaching.title%></td>
-				<%if(teaching.start_time >= DateTime.now) %>
-					<td>On Time</td>
-				<% else %>
-					<td>Expired</td>
-				<% end %>  
-				
+				<td>none</td>
+				<td></td>
+				<td></td>
 			</tr>	
-		<% end %>
+		<%end%>	
 	</tbody>
 </table>
 
 <legend>My Learnings</legend>
-<!--<table class="table table-condensed">
+<table class="table table-condensed">
 	<thead>
 		<tr>
 			<th>Course name</th>
+			<th>Time</th>
 			<th>Status</th>
 		</tr>
 	</thead>
-	<tbody id="learning"></tbody>
-</table>-->
+	<tbody id="learning">
+		<% if @user_learnings.count > 0%>
+			<%@user_learnings.each do |learning|%>
+				<tr>
+					<td><a href = "/course?id=<%=learning.id%>"><%=learning.title%></a></td>
+					<td><%=learning.start_time.to_date%>
+						<%=learning.start_time.to_time.strftime('%H:%M')%>~
+						<%=(learning.start_time+learning.length.to_i.minutes).to_time.strftime('%H:%M')%></td>
+					<%if(learning.start_time >= DateTime.now) %>
+						<td>On Time</td>
+					<% else %>
+						<td>Expired</td>
+					<% end %>  
+					
+				</tr>	
+			<% end %>
+		<%else%>
+			<tr>
+				<td>none</td>
+				<td></td>
+				<td></td>
+			</tr>	
+		<%end%>	
+	</tbody>
+</table>

@@ -18,7 +18,8 @@ class CourseController < ApplicationController
   end
 
   def show_user_course
-    @user_teachings = Course.where("user_id = ?",current_user.id) 
+    @user_teachings = Course.where("user_id = ?",current_user.id)
+    @user_learnings = Course.joins(:enrollments).where("enrollments.user_id=?",current_user.id)
   end
 
   def show_one
