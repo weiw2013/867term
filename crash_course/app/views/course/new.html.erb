@@ -1,0 +1,37 @@
+<%= form_for @course,  :url => { :action => "add_one" },:html => {:multipart => true} do |f| %>
+  <%= f.hidden_field :user_id %>
+  <p>
+    <%= f.label :Title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :Topic %><br />
+    <%= f.collection_select :topic, Course::TOPICS, :to_s, :to_s, 
+       :include_blank => true%>
+  </p>
+  <p>
+    <%= f.label :Time %><br />
+    <%= f.datetime_select :start_time, { :include_blank => true, :start_year => 2013} %>
+  </p>
+  <p>
+    <%= f.label :Length %><br />
+    <%= f.select :length, [['1','1'],['2','2'],['3','3']], { :include_blank => true} %>
+  </p>
+   <p>
+    <%= f.label :Seats %><br />
+    <%= f.text_field :seats %>
+  </p>
+   <p>
+    <%= f.label :Price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.label :Description %><br />
+    <%= f.text_area :description, :cols => "100", :rows => "10"%>
+  </p>
+  <p>
+    <%= f.file_field :attachment %>
+  </p>
+  
+  <p><%= f.submit %></p>
+<% end %>

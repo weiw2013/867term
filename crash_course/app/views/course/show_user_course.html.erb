@@ -1,4 +1,6 @@
-
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+  <% end %>
 <legend>My Teachings</legend>
 
 <table class="table table-condensed">
@@ -16,7 +18,7 @@
 					<td><a href = "/course?id=<%=teaching.id%>"><%=teaching.title%></a></td>
 					<td><%=teaching.start_time.to_date%>
 						<%=teaching.start_time.to_time.strftime('%H:%M')%>~
-						<%=(teaching.start_time+teaching.length.to_i.minutes).to_time.strftime('%H:%M')%></td>
+						<%=(teaching.start_time+teaching.length*60.to_i.minutes).to_time.strftime('%H:%M')%></td>
 					<%if(teaching.start_time >= DateTime.now) %>
 						<td>On Time</td>
 					<% else %>

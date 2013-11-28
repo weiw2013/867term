@@ -1,2 +1,42 @@
-<h1>Course#show_all</h1>
-<p>Find me in app/views/course/show_all.html.erb</p>
+ <legend>Browse Course</legend>
+     <div class="row">
+        <div class="span2 offset10">
+          <div class="dropdown">
+              <button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
+               Sort By 
+               <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Date Added</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Topic</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popularity</a></li>
+      
+              </ul>
+             </div>
+
+       </div>
+   </div>
+ 
+ <br /> <br />
+ 
+<div id = "frame" class="row pagination-centered" >
+  <%@courses.each do |course|%>
+    <div class="span4">
+      <ul class="thumbnails">
+          <li class="span3">
+              <div class="thumbnail"><a href="/course/?id=<%=course.id%>">
+
+                <% if course.attachment_url==nil%>
+                  <img src="/images/sample.jpg">
+                <%else%>  
+                    <img src="<%=course.attachment_url%>" alt="" class="img-rounded" >
+                  <% end %>
+                  <strong><%=course.title%></strong>
+              </a></div>
+          </li>
+      </ul>
+    </div>
+  <% end %>
+
+</div>
+

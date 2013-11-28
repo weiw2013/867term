@@ -1,7 +1,7 @@
 <% content_for(:head) do %>
   <%= javascript_include_tag 'add_course.js' %>
 <% end %>
- <!--<form class="form-horizontal" method="POST" > -->    
+ <!--<form class="form-horizontal" method="POST" > 
     <div class = "row">        
         <div class="span7">
         	<div class="control-group">
@@ -93,7 +93,9 @@
                 </label>
                 <div class="controls">
                     <input type="text" class="span4" placeholder="File name" id="image-file">
-                    <!--<button class="btn" id="upload-Attachment">Upload</button>-->
+                    <button class="btn" id="upload-Attachment">Upload</button>
+                    
+
                 </div>
             </div>
         </div>
@@ -123,5 +125,34 @@
             <input type= "submit" id="submit"  value="Submit" class="btn btn-primary"/>
         </div>    
     </div>    
- <!--</form>  -->         
+</form>  -->         
 
+<%= form_for @course,  :url => { :action => "add_one" },:html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :Title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :Topic %><br />
+    <%= f.collection_select :topic, Course::TOPICS, :to_s, :to_s, 
+       :include_blank => true%>
+  </p>
+  <p>
+    <%= f.label :Time %><br />
+    <%= f.datetime_select :start_time, { :include_blank => true, :start_year => 2013 } %>
+  </p>
+  <p>
+    <%= f.label :Length %><br />
+    <%= f.text_field :length %>
+  </p>
+  <p>
+    <%= f.label :Description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.file_field :attachment %>
+  </p>
+  
+  <p><%= f.submit %></p>
+<% end %>
