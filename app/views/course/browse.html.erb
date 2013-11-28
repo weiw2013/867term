@@ -1,0 +1,39 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag 'browse_course.js' %>
+<% end %>
+
+ <legend>Browse Course</legend>
+     <div class="row">
+        <div class="span2 offset10">
+          <div class="dropdown">
+              <button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
+               Sort By 
+               <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Date Added</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Topic</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popularity</a></li>
+      
+              </ul>
+             </div>
+
+       </div>
+   </div>
+ 
+ <br /> <br />
+ 
+<div id = "frame" class="row pagination-centered" >
+  <%@course.each do |teaching|%>
+    <ul class="thumbnails">
+        <li class="span3">
+            <a href="/course/?id=<%=@course.id%>" class="thumbnail">
+                <img src="<%=@course.attachment_url%>" alt="" class="img-rounded" >
+                <strong><%=@course.title%></strong>
+            </a>
+        </li>
+    </ul>
+  <% end %>
+
+</div>
+

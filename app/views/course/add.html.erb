@@ -1,0 +1,158 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag 'add_course.js' %>
+<% end %>
+ <!--<form class="form-horizontal" method="POST" > 
+    <div class = "row">        
+        <div class="span7">
+        	<div class="control-group">
+        		<label class="control-label">Title</label>
+        		<div class="controls">
+                    <input type="text" id="title" placeholder="Course Title">
+                </div>
+            </div>
+       </div> 
+       <div class="span5">
+            <div class="control-group">
+                <label class="control-label">Topic</label>
+                <div class="controls">
+                   <select id = "topic">
+                        <option>Art</option>
+                        <option>Science</option>
+                        <option>Technology</option>
+                        <option>Personal Improvement</option>
+                        <option>Home Improvement</option>
+                        <option>Recreation</option>
+                        <option>Others</option>
+                    </select>
+                </div>
+            </div>
+       </div>      
+   </div> 
+   <div class="row">
+         <div class="span7">
+            <div class="control-group">
+                <label class="control-label">Date</label>
+                <div class="controls">
+                    <select id = "month"  class="input-small">
+                    </select>
+                    /
+                    <select id = "day"  class="input-small">
+                    </select>
+                    /
+                    <select id = "year"  class="input-small">
+                    </select>
+                </div> 
+            </div>         
+        </div> 
+        <div class = "span5">
+            <div class="control-group">
+                <label class="control-label">Time</label>
+                <div class="controls">
+                    
+                        <select id = "time-hr"  class="input-small">
+                        </select>
+                        :
+                        <select id = "time-min"  class="input-small">
+                        </select>
+                </div> 
+            </div>
+        </div>
+    </div>  
+    <div class = "row">
+        <div class="span7">
+            <div class="control-group">
+                <label class="control-label">Length</label>
+                <div class="controls">
+                   <select id = "hour" class="input-small">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>                       
+                    </select>
+                    hr
+                    <select id = "minute" class="input-small">                     
+                    </select>
+                    min
+                </div>
+            </div>
+       </div>      
+        <div class="span5">
+            <div class="control-group">
+                <label class="control-label">Seats</label>
+                <div class="controls">
+                    <input type="text" id="seats" placeholder="seats">
+                </div>
+            </div>
+       </div> 
+   </div> 
+   <div class = "row">
+        <div class="span7">
+           <div class="control-group">
+                <label class="control-label" for="image-field">
+                    Attachment
+                </label>
+                <div class="controls">
+                    <input type="text" class="span4" placeholder="File name" id="image-file">
+                    <button class="btn" id="upload-Attachment">Upload</button>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="control-group">
+                <label class="control-label">Price</label>
+                <div class="controls">
+                    <input type="text" id="price" placeholder="price">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Description</label>
+        <div class="controls">
+           <textarea rows="6" 
+                      id="description" 
+                      class="span8 input-block-level"
+                      placeholder="Course Description"></textarea>
+        </div>
+    </div>   
+   
+    
+    <div class="control-group">
+        <div class="controls">
+            <input type= "submit" id="submit"  value="Submit" class="btn btn-primary"/>
+        </div>    
+    </div>    
+</form>  -->         
+
+<%= form_for @course,  :url => { :action => "add_one" },:html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :Title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :Topic %><br />
+    <%= f.collection_select :topic, Course::TOPICS, :to_s, :to_s, 
+       :include_blank => true%>
+  </p>
+  <p>
+    <%= f.label :Time %><br />
+    <%= f.datetime_select :start_time, { :include_blank => true, :start_year => 2013 } %>
+  </p>
+  <p>
+    <%= f.label :Length %><br />
+    <%= f.text_field :length %>
+  </p>
+  <p>
+    <%= f.label :Description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.file_field :attachment %>
+  </p>
+  
+  <p><%= f.submit %></p>
+<% end %>
