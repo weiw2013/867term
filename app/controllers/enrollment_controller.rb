@@ -32,6 +32,11 @@ class EnrollmentController < ApplicationController
   end 
 
   def delete_one
+    Enrollment.where("course_id = ? and user_id = ?",params[:course_id],current_user.id).destroy_all
+    course=Course.find_by(id: params[:course_id])
+    course.seats = course.seats.to_i+1
+    course.save
+    redirect_to :back
   end
 
   def show_one

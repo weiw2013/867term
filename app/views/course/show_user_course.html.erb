@@ -1,5 +1,12 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag 'delete_course.js' %>
+<% end %>
+
 <% if flash[:notice] %>
-    <div class="notice"><%= flash[:notice] %></div>
+    <div class="alert alert-info">
+    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	<strong><%= flash[:notice] %></strong>
+    </div>
   <% end %>
 <legend>My Teachings</legend>
 
@@ -9,27 +16,46 @@
 			<th>Course name</th>
 			<th>Time</th>
 			<th>Status</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody id="teaching">
 		<% if @user_teachings.count > 0%>
 			<%@user_teachings.each do |teaching|%>
+				<% end_time = teaching.start_time+teaching.length*60.to_i.minutes %>
 				<tr>
 					<td><a href = "/course?id=<%=teaching.id%>"><%=teaching.title%></a></td>
 					<td><%=teaching.start_time.to_date%>
 						<%=teaching.start_time.to_time.strftime('%H:%M')%>~
-						<%=(teaching.start_time+teaching.length*60.to_i.minutes).to_time.strftime('%H:%M')%></td>
-					<%if(teaching.start_time >= DateTime.now) %>
-						<td>On Time</td>
-					<% else %>
+						<%=end_time.to_time.strftime('%H:%M')%></td>
+					<%if DateTime.now > end_time %>
 						<td>Expired</td>
+					<% elsif DateTime.now < teaching.start_time %>
+						<td>Scheduled</td><td><button id= "delete-teaching" data-course-id=<%= teaching.id%> data-course-title=<%= teaching.title%>  data-toggle="modal" data-target="#teachModal<%=teaching.id%>" class="close pull-left">&times;</button></td>
+					<% else %>
+						<td>In Process</td>
 					<% end %>  
 					
-				</tr>	
+				</tr>
+				<div id="teachModal<%=teaching.id%>" class="modal hide fade">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<br />
+					</div>
+					<div id="teachModalBody" class="modal-body">
+						<p>Do you really want to delete "<%=teaching.title%>"?</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+						<a href="/course/delete/?id=<%=teaching.id%>" class="btn btn-primary">Confirm</a>
+					</div>
+				</div>
+				
 			<% end %>
 		<%else%>
 			<tr>
 				<td>none</td>
+				<td></td>
 				<td></td>
 				<td></td>
 			</tr>	
@@ -44,30 +70,50 @@
 			<th>Course name</th>
 			<th>Time</th>
 			<th>Status</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody id="learning">
 		<% if @user_learnings.count > 0%>
 			<%@user_learnings.each do |learning|%>
+				<% end_time = learning.start_time+learning.length*60.to_i.minutes %>
 				<tr>
 					<td><a href = "/course?id=<%=learning.id%>"><%=learning.title%></a></td>
 					<td><%=learning.start_time.to_date%>
 						<%=learning.start_time.to_time.strftime('%H:%M')%>~
-						<%=(learning.start_time+learning.length.to_i.minutes).to_time.strftime('%H:%M')%></td>
-					<%if(learning.start_time >= DateTime.now) %>
-						<td>On Time</td>
-					<% else %>
+						<%=end_time.to_time.strftime('%H:%M')%></td>
+					<%if DateTime.now > end_time %>
 						<td>Expired</td>
+					<% elsif DateTime.now < learning.start_time %>
+						<td>Scheduled</td><td><button id= "delete-learning" data-learning=<%=learning.id%> data-toggle="modal" data-target="#learnModal<%=learning.id%>" class="close pull-left">&times;</button></td>
+					<% else %>
+						<td>In Process</td>
 					<% end %>  
+				</tr>
+
+				<div id="learnModal<%=learning.id%>" class="modal hide fade">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<br />
+					</div>
+					<div id="teachModalBody" class="modal-body">
+						<p>Do you really want to drop "<%=learning.title%>"?</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+						<a href="/enroll/delete/?course_id=<%=learning.id%>" class="btn btn-primary">Confirm</a>
+					</div>
+				</div>
 					
-				</tr>	
 			<% end %>
 		<%else%>
 			<tr>
 				<td>none</td>
 				<td></td>
 				<td></td>
+				<td></td>
 			</tr>	
 		<%end%>	
 	</tbody>
 </table>
+

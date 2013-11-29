@@ -37,6 +37,8 @@ class CourseController < ApplicationController
   end
 
   def delete_one
+    Course.destroy(params[:id])
+    redirect_to :back
   end
 
   def show_user_course
