@@ -1,16 +1,28 @@
 class CommentController < ApplicationController
-  def add_one
+  before_filter :authenticate_user!, :only => [:create]
+  def index
   end
 
-  def edit_one
+  def create
+    @comment = Comment.new (comment_params)
+    @comment.user_id = current_user.id
+    #@comment.course_id = params[:comment]["course_id"]
+    @comment.save
+    redirect_to :back
   end
 
-  def delete_one
+  def new
+    @comment = Comment.new
   end
 
-  def show_one
+  def destroy
   end
 
-  def show_all
+  def show
+  end
+
+  private
+  def comment_params
+    params.require(:comment).permit(:content,:course_id)
   end
 end

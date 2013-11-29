@@ -13,12 +13,9 @@ class CourseController < ApplicationController
       @course.user_id = current_user.id
       @course.save
       flash[:notice] = "Successfully created course."+course_start_time.to_s+" "+params[:course][:length]
-      #redirect_to @painting.gallery
       redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Successfully created course.")
     else
-      #render :json => {"response" => "Time conflict! Please check 'My course' " }
       flash[:notice] = "Time conflict! Please check 'My course'"
-      #render :action => 'new'
       redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Time conflict! Please double check")
     end
     
@@ -48,20 +45,24 @@ class CourseController < ApplicationController
   end
 
   def show_one
-    @course = Course.find(params[:id]);
-    @user = User.find(@course.user_id);
+    @course = Course.find(params[:id])
+    @user = User.find(@course.user_id)
+    @comments = Comment.where("course_id = ?", params[:id])
   end
 
   def browse
-    @course = Course.where("start_time >= ? AND seats > 0", DateTime.now).all
+    @course = Course.where("start_time >= ? AND seats > 0", DateTime.now).all    
   end
 
   def show_all
-    @courses = Course.where("start_time >= ? AND seats > 0", DateTime.now).all
-    
+    @courses = Course.where("start_time >= ? AND seats > 0", DateTime.now).all(:order=>params["Sort by"])
     #respond_to do |format|
     #  format.js { render :json => @course.to_json(:only => [:title, :id,:start_time])}
     #end
+  end
+
+  def search
+    @search_results = Course.where("start_time >= ? AND seats > 0 And (title like ? or description like ?)", DateTime.now,"%#{params[:search]}%","%#{params[:search]}%").all(:order=>params["Sort by"])
   end
 
   private

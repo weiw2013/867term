@@ -1,19 +1,21 @@
- <% content_for(:head) do %>
+<% content_for(:head) do %>
   <%= stylesheet_link_tag 'show_all.css' %>
 <% end %>
- <legend>Browse Course</legend>
+<legend>Search result</legend>
      <div class="row">
         <div class="span4 offset8">
-           <%= form_tag browse_course_path, :method => 'get',:html=>{:id=>'sort_by'} do %>      <%="Sort by:"%>                 
-                <%= select_tag "Sort by",options_for_select([['Topic','topic'],['Start time','start_time'],['Seats','seats'],['Price','price']],:selected => params["Sort by"]),:include_blank => true, :onchange=> "this.form.submit();" %>                         
+           <%= form_tag search_result_path, :method => 'get',:html=>{:id=>'sort_by'} do %>      <%="Sort by:"%>   
+                <%= hidden_field_tag :search, params[:search] %>              
+                <%= select_tag "Sort by",options_for_select([['Topic','topic'],['Start time','start_time'],['Seats','seats'],['Price','price']],:selected => params["Sort by"]), :include_blank => true,:onchange=> "this.form.submit();" %>                         
             <% end %>
          </div>
      </div>
  
+ 
  <br /> <br />
  
 <div id = "frame" class="row pagination-centered" >
-  <%@courses.each do |course|%>
+  <%@search_results.each do |course|%>
     <div class="span4">
       <ul class="thumbnails">
           <li class="span3">
@@ -32,4 +34,3 @@
   <% end %>
 
 </div>
-
