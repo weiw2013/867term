@@ -11,7 +11,7 @@ gem 'execjs'
 gem 'devise'
 #gem 'protected_attributes'
 gem 'forem', :github => "radar/forem", :branch => "rails4"
-gem 'forem-bootstrap', :github => "radar/forem-bootstrap"
+gem 'forem-bootstrap', :github => "radar/forem-bootstrap", :branch => "master"
 gem 'friendly_id', github: "FriendlyId/friendly_id"
 gem 'cancan', git: "https://github.com/nukturnal/cancan.git"
 gem 'kaminari', '0.14.1'
