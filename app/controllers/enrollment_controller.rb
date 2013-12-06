@@ -2,29 +2,31 @@ class EnrollmentController < ApplicationController
   before_filter :authenticate_user!
   
   def add_one
-    if get_credit? && get_availability?(params[:start_time].to_time,params[:length].to_i) 
-      course = Course.find_by(id: params[:course_id])
+    course = Course.find_by(id: params[:course_id])
+    if get_credit?(course.price) && get_availability?(params[:start_time].to_time,params[:length].to_i) 
+      
       course.seats = course.seats.to_i-1
       course.save
       Enrollment.create(:user_id=>current_user.id,:course_id =>params[:course_id])
       
-      teacher = User.joins(:courses).where("user_id=?",current_user.id)
-      teacher.credit = teacher.credit.to_i+1
+      teacher = User.find_by(id:course.user_id)
+      teacher.credit = teacher.credit.to_i+course.price
       teacher.save
 
       learner = User.joins(:enrollments).where("user_id=? and course_id=?",current_user.id,params[:course_id])
-      learner.credit = learner.credit.to_i-1
+      learner.credit = learner.credit.to_i-course.price
       learner.save
-      
-      render :json => {"response" => "Enrollment added successfully" }
+      flash[:alert] = "Successfully enrolled in the course"
+      redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Successfully enrolled in the course")
     else
-      render :json => {"response" => "Time conflict! Please check 'My course' " }
+      flash[:alert] = "Time conflict! Please check 'My course'"
+      redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Time conflict! Please double check")
     end
   end
 
-  def get_credit?
+  def get_credit?(price)
     @user = User.find_by(id:current_user.id)
-    if(@user.credit > 0)
+    if(@user.credit >= price)
       return true
     else
       return false

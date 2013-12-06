@@ -12,10 +12,10 @@ class CourseController < ApplicationController
       @course = Course.new (course_params)
       @course.user_id = current_user.id
       @course.save
-      flash[:notice] = "Successfully created course."+course_start_time.to_s+" "+params[:course][:length]
+      flash[:alert] = "Successfully created course."+course_start_time.to_s+" "+params[:course][:length]
       redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Successfully created course.")
     else
-      flash[:notice] = "Time conflict! Please check 'My course'"
+      flash[:alert] = "Time conflict! Please check 'My course'"
       redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Time conflict! Please double check")
     end
     
@@ -43,6 +43,11 @@ class CourseController < ApplicationController
 
   def show_user_course
     @user_teachings = Course.where("user_id = ?",current_user.id)
+    @enrollments = {}
+
+    @user_teachings.each do |teaching|
+      @enrollments[teaching.id] = User.joins(:enrollments).where("enrollments.course_id=?",teaching.id)
+    end
     @user_learnings = Course.joins(:enrollments).where("enrollments.user_id=?",current_user.id)
   end
 

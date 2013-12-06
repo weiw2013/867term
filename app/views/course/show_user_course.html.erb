@@ -2,10 +2,10 @@
   <%= javascript_include_tag 'delete_course.js' %>
 <% end %>
 
-<% if flash[:notice] %>
+<% if flash[:alert] %>
     <div class="alert alert-info">
     	<button type="button" class="close" data-dismiss="alert">&times;</button>
-    	<strong><%= flash[:notice] %></strong>
+    	<strong><%= flash[:alert] %></strong>
     </div>
   <% end %>
 <legend>My Teachings</legend>
@@ -15,6 +15,7 @@
 		<tr>
 			<th>Course name</th>
 			<th>Time</th>
+			<th>Enrollments</th>
 			<th>Status</th>
 			<th>Action</th>
 		</tr>
@@ -28,6 +29,25 @@
 					<td><%=teaching.start_time.to_date%>
 						<%=teaching.start_time.to_time.strftime('%H:%M')%>~
 						<%=end_time.to_time.strftime('%H:%M')%></td>
+					<td>
+						<div class="accordion" id="accordion<%=teaching.id%>">
+							<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion<%=teaching.id%>" href="#collapseOne<%=teaching.id%>">
+								<%=@enrollments[teaching.id].count%>
+								</a>
+							</div>
+							<div id="collapseOne<%=teaching.id%>" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<%@enrollments[teaching.id].each do |enrollment|%>
+										<p><%=enrollment.email%><p>
+									<%end%>
+								</div>
+							</div>
+							</div>							
+						</div>
+					</td>	
+
 					<%if DateTime.now > end_time %>
 						<td>Expired</td>
 					<% elsif DateTime.now < teaching.start_time %>
