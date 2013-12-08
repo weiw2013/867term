@@ -26,8 +26,8 @@ class CourseController < ApplicationController
       redirect_to :back
     else
       course_start_time = DateTime.civil_from_format(:local,params[:course]["start_time(1i)"].to_i ,params[:course]["start_time(2i)"].to_i,params[:course]["start_time(3i)"].to_i,params[:course]["start_time(4i)"].to_i,params[:course]["start_time(5i)"].to_i).to_time
-      if(course_start_time < DateTime.now)
-        flash[:alert]="Must pick a future time!"
+      if(course_start_time < DateTime.now.to_time)
+        flash[:alert]=" Must pick a future time!"
         redirect_to :back
       else
         if get_availability?(course_start_time,params[:course][:length].to_i)      
