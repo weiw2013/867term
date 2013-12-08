@@ -1,5 +1,5 @@
 <% content_for(:head) do %>
-  <%= javascript_include_tag 'delete_course.js' %>
+  <%= javascript_include_tag 'start_course.js' %>
 <% end %>
 
 <% if flash[:alert] %>
@@ -7,7 +7,8 @@
     	<button type="button" class="close" data-dismiss="alert">&times;</button>
     	<strong><%= flash[:alert] %></strong>
     </div>
-  <% end %>
+<% end %>
+<strong class = "pull-right">Available credits: <%=@page_user.credit%></strong>
 <legend>My Teachings</legend>
 
 <table class="table table-condensed">
@@ -50,10 +51,12 @@
 
 					<%if DateTime.now > end_time %>
 						<td>Expired</td>
+						<td>-</td>
 					<% elsif DateTime.now < teaching.start_time %>
 						<td>Scheduled</td><td><button id= "delete-teaching" data-course-id=<%= teaching.id%> data-course-title=<%= teaching.title%>  data-toggle="modal" data-target="#teachModal<%=teaching.id%>" class="close pull-left">&times;</button></td>
 					<% else %>
 						<td>In Process</td>
+						<td><a class="btn" id="start" href="">Start</a><td>
 					<% end %>  
 					
 				</tr>
@@ -116,7 +119,7 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<br />
 					</div>
-					<div id="teachModalBody" class="modal-body">
+					<div id="learnModalBody" class="modal-body">
 						<p>Do you really want to drop "<%=learning.title%>"?</p>
 					</div>
 					<div class="modal-footer">

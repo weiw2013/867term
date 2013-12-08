@@ -6,19 +6,43 @@ class CourseController < ApplicationController
   end
   
   def create
-    course_start_time = DateTime.civil_from_format(:local,params[:course]["start_time(1i)"].to_i ,params[:course]["start_time(2i)"].to_i,params[:course]["start_time(3i)"].to_i,params[:course]["start_time(4i)"].to_i,params[:course]["start_time(5i)"].to_i).to_time
-    
-    if get_availability?(course_start_time,params[:course][:length].to_i)      
-      @course = Course.new (course_params)
-      @course.user_id = current_user.id
-      @course.save
-      flash[:alert] = "Successfully created course."+course_start_time.to_s+" "+params[:course][:length]
-      redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Successfully created course.")
+    if params[:course][:title] == ''
+      flash[:alert]="Title can NOT be empty!"
+      redirect_to :back
+    elsif params[:course][:topic] == ''
+      flash[:alert]="Topic can NOT be empty!"
+      redirect_to :back
+    elsif params[:course][:seats].to_i <= 0
+      flash[:alert]="Seats must be a positive integer!"
+      redirect_to :back
+    elsif params[:course][:length] == ''
+      flash[:alert]="Length can NOT be empty!"
+      redirect_to :back
+    elsif params[:course][:price].to_i <= 0
+      flash[:alert]="Price must be a positive integer!"
+      redirect_to :back
+    elsif params[:course]["start_time(1i)"] == '' ||params[:course]["start_time(2i)"] == ''||params[:course]["start_time(3i)"] == ''||params[:course]["start_time(4i)"] == ''||params[:course]["start_time(5i)"] == ''
+      flash[:alert]="Time can NOT be empty!"
+      redirect_to :back
     else
-      flash[:alert] = "Time conflict! Please check 'My course'"
-      redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Time conflict! Please double check")
-    end
-    
+      course_start_time = DateTime.civil_from_format(:local,params[:course]["start_time(1i)"].to_i ,params[:course]["start_time(2i)"].to_i,params[:course]["start_time(3i)"].to_i,params[:course]["start_time(4i)"].to_i,params[:course]["start_time(5i)"].to_i).to_time
+      if(course_start_time < DateTime.now)
+        flash[:alert]="Must pick a future time!"
+        redirect_to :back
+      else
+        if get_availability?(course_start_time,params[:course][:length].to_i)      
+          @course = Course.new (course_params)
+          @course.user_id = current_user.id
+          @course.save
+          flash[:alert] = "Successfully created course."+course_start_time.to_s+" "+params[:course][:length]
+          redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Successfully created course.")
+        else
+          flash[:alert] = "Time conflict! Please check 'My course'"
+          redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Time conflict! Please double check")
+        end
+      end  
+    end  
+      
   end
   
   def add_one
@@ -42,6 +66,7 @@ class CourseController < ApplicationController
   end
 
   def show_user_course
+    @page_user =  User.find_by(id:current_user.id)
     @user_teachings = Course.where("user_id = ?",current_user.id)
     @enrollments = {}
 

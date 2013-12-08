@@ -1,5 +1,6 @@
 CrashCourse::Application.routes.draw do
 
+  get "course/start_course"
   get "course/search"
   get "comment/index"
   get "comment/create"
@@ -42,6 +43,7 @@ CrashCourse::Application.routes.draw do
   match '/course/add_one', to:'course#create', via:'post'
   match '/search/result', to:'course#search', via:'get'
   match '/course/delete', to:'course#delete_one',via:'get'
+  match '/start_course', to:'course#start_course',via:'get'
   
   match '/comment/new', to:'comment#new', via:'get'
   match '/course/create', to: 'comment#create', via:'post'

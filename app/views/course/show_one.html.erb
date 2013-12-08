@@ -33,7 +33,8 @@
 <% if @comments.count > 0%>
 	<legend><%=@comments.count%> comments </legend>
 	<%@comments.each do |comment|%>
-		<%= simple_format (User.find(comment.user_id.to_s)).username %>
+		<i class="icon-user"></i>
+		<strong> <%=(User.find(comment.user_id.to_s)).username %></strong><br />
 		<%= simple_format(comment.content) %>
 		<hr />
 	<%end%>

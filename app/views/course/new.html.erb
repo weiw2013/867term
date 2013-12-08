@@ -1,3 +1,9 @@
+<% if flash[:alert] %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong><%= flash[:alert] %></strong>
+    </div>
+<% end %>
 <%= form_for @course,  :url => { :action => "add_one" },:html => {:multipart => true} do |f| %>
   <%= f.hidden_field :user_id %>
   <legend>Add Course</legend>

@@ -13,14 +13,15 @@ class EnrollmentController < ApplicationController
       teacher.credit = teacher.credit.to_i+course.price
       teacher.save
 
-      learner = User.joins(:enrollments).where("user_id=? and course_id=?",current_user.id,params[:course_id])
+      learner = User.find_by(id:current_user.id)
       learner.credit = learner.credit.to_i-course.price
       learner.save
+
       flash[:alert] = "Successfully enrolled in the course"
-      redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Successfully enrolled in the course")
+      
     else
       flash[:alert] = "Time conflict! Please check 'My course'"
-      redirect_to({ :controller => :course, :action => :show_user_course }, :alert => "Time conflict! Please double check")
+      
     end
   end
 
@@ -38,6 +39,16 @@ class EnrollmentController < ApplicationController
     course=Course.find_by(id: params[:course_id])
     course.seats = course.seats.to_i+1
     course.save
+
+    teacher = User.find_by(id:course.user_id)
+    teacher.credit = teacher.credit.to_i-course.price
+    teacher.save
+
+    learner = User.find_by(id:current_user.id)
+    learner.credit = learner.credit.to_i+course.price
+    learner.save
+
+
     redirect_to :back
   end
 

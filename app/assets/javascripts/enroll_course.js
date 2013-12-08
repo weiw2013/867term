@@ -18,10 +18,7 @@ function add_enrollment(){
                 alert('failed');
             },
             success:function(data){
-                result = $.parseJSON(data);
-                $.each(result, function (i) {
-                    alert(result[i]);
-                });
+                document.location.href = '/my_course'; 
                 
             },
             dataType: 'text'
