@@ -51,7 +51,7 @@
 
 					<%if DateTime.now > end_time %>
 						<td>Expired</td>
-						<td>-</td>
+						<td><button id= "delete-teaching" data-course-id=<%= teaching.id%> data-course-title=<%= teaching.title%>  data-toggle="modal" data-target="#teachModal<%=teaching.id%>" class="close pull-left">&times;</button></td>
 					<% elsif DateTime.now < teaching.start_time %>
 						<td>Scheduled</td><td><button id= "delete-teaching" data-course-id=<%= teaching.id%> data-course-title=<%= teaching.title%>  data-toggle="modal" data-target="#teachModal<%=teaching.id%>" class="close pull-left">&times;</button></td>
 					<% else %>
