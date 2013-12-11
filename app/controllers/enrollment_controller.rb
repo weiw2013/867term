@@ -3,7 +3,7 @@ class EnrollmentController < ApplicationController
   
   def add_one
     course = Course.find_by(id: params[:course_id])
-    if get_credit?(course.price) && get_availability?(params[:start_time].to_time,params[:length].to_i) 
+    if get_credit?(course.price) && get_availability?(course.start_time.to_time,course.length.to_i) 
       
       course.seats = course.seats.to_i-1
       course.save
@@ -20,9 +20,9 @@ class EnrollmentController < ApplicationController
       flash[:alert] = "Successfully enrolled in the course"
       
     else
-      flash[:alert] = "Time conflict! Please check 'My course'"
-      
+      flash[:alert] = "Time conflict! Please check 'My course'"    
     end
+    redirect_to :back
   end
 
   def get_credit?(price)

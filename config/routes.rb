@@ -48,7 +48,7 @@ CrashCourse::Application.routes.draw do
   match '/comment/new', to:'comment#new', via:'get'
   match '/course/create', to: 'comment#create', via:'post'
   
-  match '/enroll_course', to:'enrollment#add_one',via:'post'
+  match '/enrollment/add_one', to:'enrollment#add_one',via:'post'
   match '/enroll/delete', to:'enrollment#delete_one',via:'get'
   # This line mounts Forem's routes at /forums by default.
   # This means, any requests to the /forums URL of your application will go to Forem::ForumsController#index.

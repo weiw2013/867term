@@ -1,6 +1,12 @@
 <% content_for(:head) do %>
   <%= javascript_include_tag 'enroll_course.js' %>
 <% end %>
+<% if flash[:alert] %>
+    <div class="alert alert-info">
+    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	<strong><%= flash[:alert] %></strong>
+    </div>
+<% end %>
 
 <legend id = <%=@course.id%> ><%=@course.title%></legend>
 
@@ -25,8 +31,8 @@
 <br /><br/>
 <div class="row">
 	<div class = "span2 offset10">
-		 <input type= "submit" id="enroll"  value="Enroll" class="btn btn-large btn-primary"/>
-			<!--<%= button_to 'Enroll', {:controller => :enrollment, :action => 'add_one', :course_id => @course.id}, :method=>:post  %>-->
+		 <!--<input type= "submit" id="enroll"  value="Enroll" class="btn btn-large btn-primary"/>-->
+			<%= button_to 'Enroll',{:controller => :enrollment, :action => 'add_one', :course_id => @course.id},:method=>:post, :class => "btn btn-large btn-primary" %>
 		
 	</div>
 </div>
